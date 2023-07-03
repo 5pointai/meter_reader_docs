@@ -2,7 +2,8 @@
 
 ## Overview
 
-The Meter Reading OCR API allows you to extract meter readings and serial numbers from images of meter displays. The API accepts images in base64 format and returns the bounding box values, OCR of the meter display screen, and serial number.
+The Meter Reading OCR API allows you to extract meter readings and serial numbers from images of meter displays. The API accepts image uploaded as a multi-part file and returns the bounding box values, OCR of the meter display screen, and serial number.
+
 
 ## Base URL
 
@@ -22,21 +23,25 @@ Extracts meter readings and serial numbers from the meter display image.
 
 #### Input Payload
 
+The request should use the `multipart/form-data` format with the following field:
+`meter_image`: The meter image file to be uploaded.
+
+
 ```json
 {
-  "image_data": "Image base64 data"
+  "FileName": Browse the meter image file
 }
 ```
 
 
-
 ## Headers
-`Content-Type: application/json`
 
+`Content-Type: multipart/form-data`
 `x-api-key: YOUR_API_KEY`
 
 
 ## Output
+The API returns a JSON object with information about uploaded image.
 
 ```json
 {
@@ -72,14 +77,14 @@ import json
 url = "https://f076dkkw02.execute-api.eu-north-1.amazonaws.com/dev/meter_reading"
 api_key = "YOUR_API_KEY"
 headers = {
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
     "x-api-key": api_key
 }
-payload = {
-    "image_data": "Image base64 data"
-}
+image_path = "/folder_path/2.jpg"
+with open(image_path, "rb") as image_file:
+    files = {"image": image_file}
+    response = requests.post(url, headers=headers, files=files)
 
-response = requests.post(url, headers=headers, data=json.dumps(payload))
 response_data = json.loads(response.text)
 
 print(response_data)
