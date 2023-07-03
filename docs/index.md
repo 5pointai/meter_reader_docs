@@ -24,12 +24,13 @@ Extracts meter readings and serial numbers from the meter display image.
 #### Input Payload
 
 The request should use the `multipart/form-data` format with the following field:
+
 `meter_image`: The meter image file to be uploaded.
 
 
 ```json
 {
-  "FileName": Browse the meter image file
+  "image": "Browse the meter image file"
 }
 ```
 
@@ -37,6 +38,7 @@ The request should use the `multipart/form-data` format with the following field
 ## Headers
 
 `Content-Type: multipart/form-data`
+
 `x-api-key: YOUR_API_KEY`
 
 
